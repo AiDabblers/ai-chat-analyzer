@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { ChatMessage } from "./ChatMessage";
+import axios from "axios";
 
 export function ChatRoom() {
 	const NUMBER_OF_VIEWABLE_MESSAGES = 25;
@@ -45,9 +46,14 @@ export function ChatRoom() {
 	const sendMessage = async (e) => {
 		e.preventDefault();
 
+		const res = await axios.post("http://127.0.0.1:5000/chat", {
+			message: formValue,
+			ai_enabled: true,
+		});
+
 		const { uid, photoURL, displayName } = auth.currentUser;
 		await addDoc(collection(db, "messages"), {
-			text: formValue,
+			text: `${formValue} (${res.data.emotion})`,
 			createdAt: serverTimestamp(),
 			displayName,
 			uid,
@@ -70,7 +76,7 @@ export function ChatRoom() {
 					<input
 						value={formValue}
 						onChange={(e) => setFormValue(e.target.value)}
-						placeholder="say something nice"
+						placeholder="type something here."
 					/>
 
 					<button type="submit" disabled={!formValue}>
