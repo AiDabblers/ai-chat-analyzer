@@ -46,7 +46,7 @@ export function ChatRoom() {
 	const sendMessage = async (e) => {
 		e.preventDefault();
 
-		const res = await axios.post("http://127.0.0.1:5000/chat", {
+		const res = await axios.post(process.env.REACT_APP_AI_BACKEND_URL, {
 			message: formValue,
 			ai_enabled: true,
 		});
