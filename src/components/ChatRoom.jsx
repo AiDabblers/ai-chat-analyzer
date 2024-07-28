@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+// import { useCollectionData } from "react-firebase-hooks/firestore";
 import {
 	addDoc,
 	collection,
@@ -16,7 +16,6 @@ export function ChatRoom() {
 	const NUMBER_OF_VIEWABLE_MESSAGES = 25;
 	const [messages, setMessages] = useState();
 	const [formValue, setFormValue] = useState("");
-	console.log("f: ", formValue);
 
 	const dummy = useRef();
 
