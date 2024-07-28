@@ -5,13 +5,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+	apiKey: "AIzaSyBW6LIrsb_sUgRRojvqEicpziLycwtRIOo",
 	authDomain: "ai-chat-analyzer.firebaseapp.com",
 	projectId: "ai-chat-analyzer",
 	storageBucket: "ai-chat-analyzer.appspot.com",
-	messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-	appId: process.env.REACT_APP_FIREBASE_APP_ID,
-	measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+	messagingSenderId: "425481873777",
+	appId: "1:425481873777:web:432ee6afae6a3732926ed0",
+	measurementId: "G-EPRWJ7NCT0",
 };
 
 const app = initializeApp(firebaseConfig);

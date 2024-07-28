@@ -46,10 +46,15 @@ export function ChatRoom() {
 	const sendMessage = async (e) => {
 		e.preventDefault();
 
-		const res = await axios.post(process.env.REACT_APP_AI_BACKEND_URL, {
-			message: formValue,
-			ai_enabled: true,
-		});
+		const res = await axios.post(
+			process.env.NODE_ENV === "dev"
+				? "http://127.0.0.1:8000/chat"
+				: "https://ai-chat-analyzer.onrender.com/chat",
+			{
+				message: formValue,
+				ai_enabled: true,
+			}
+		);
 
 		const { uid, photoURL, displayName } = auth.currentUser;
 		await addDoc(collection(db, "messages"), {
