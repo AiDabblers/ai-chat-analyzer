@@ -17,6 +17,9 @@ export function ChatRoom() {
 	const NUMBER_OF_VIEWABLE_MESSAGES = 25;
 	const [messages, setMessages] = useState();
 	const [formValue, setFormValue] = useState("");
+	const API_URL =
+		"https://api-inference.huggingface.co/models/michellejieli/emotion_text_classifier";
+	const API_KEY = "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";
 
 	const dummy = useRef();
 
@@ -45,20 +48,32 @@ export function ChatRoom() {
 
 	const sendMessage = async (e) => {
 		e.preventDefault();
+		// const res = await axios.post(
+		// 	process.env.NODE_ENV === "dev"
+		// 		? "http://127.0.0.1:5000/chat"
+		// 		: "https://ai-chat-analyzer.onrender.com/chat",
+		// 	{
+		// 		message: formValue,
+		// 		ai_enabled: true,
+		// 	}
+		// );
 
 		const res = await axios.post(
-			process.env.NODE_ENV === "dev"
-				? "http://127.0.0.1:8000/chat"
-				: "https://ai-chat-analyzer.onrender.com/chat",
+			API_URL,
 			{
-				message: formValue,
-				ai_enabled: true,
+				inputs: formValue,
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${API_KEY}`,
+					"Content-Type": "application/json",
+				},
 			}
 		);
 
 		const { uid, photoURL, displayName } = auth.currentUser;
 		await addDoc(collection(db, "messages"), {
-			text: `${formValue} (${res.data.emotion})`,
+			text: `${formValue} (${res.data[0][0].label})`,
 			createdAt: serverTimestamp(),
 			displayName,
 			uid,
